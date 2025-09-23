@@ -5,7 +5,7 @@ services:
   # Nginx Service
   nginx:
     image: nginx:1.23
-    container_name: webserver
+    container_name: webserver-proyecto
     ports:
       - 80:80
     volumes:
@@ -18,7 +18,7 @@ services:
   php:
     build: ./.docker/php/
     working_dir: /var/www/php
-    container_name: php
+    container_name: php-proyecto
     restart: unless-stopped
     expose:
       - 9000

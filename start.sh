@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Inicia el servidor Vite en segundo plano
-echo "Iniciando Vite..."
-(cd client && npm run dev) &
+# Abre una terminal nueva y ejecuta Vite
+gnome-terminal -- bash -c "cd client && npm run dev; exec bash"
 
 # Inicia Docker Compose
 echo "Iniciando Docker Compose..."
