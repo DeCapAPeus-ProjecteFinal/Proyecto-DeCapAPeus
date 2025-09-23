@@ -1,0 +1,56 @@
+version: '3.8'
+# Services
+services:
+
+  # Nginx Service
+  nginx:
+    image: nginx:1.23
+    container_name: webserver
+    ports:
+      - 80:80
+    volumes:
+      - ./php:/var/www/php
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+
+  # PHP Service
+  php:
+    build: ./.docker/php/
+    working_dir: /var/www/php
+    container_name: php
+    restart: unless-stopped
+    expose:
+      - 9000
+    volumes:
+      - ./php:/var/www/php
+      - ./.docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./.docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+#   db:
+#     image: mysql:8.0
+#     ports:
+#       - "3306:3306"
+#     command: --default-authentication-plugin=mysql_native_password
+#     environment:
+#       MYSQL_DATABASE: pruebadb
+#       MYSQL_USER: usuario
+#       MYSQL_PASSWORD: 1234
+#       MYSQL_ROOT_PASSWORD: 1234
+#     volumes:
+#       - persistent:/var/lib/mysql
+#     networks:
+#       - default
+#   phpmyadmin:
+#     image: phpmyadmin/phpmyadmin
+#     links:
+#       - db:db
+#     ports:
+#       - 8000:80
+#     environment:
+#       MYSQL_USER: usuario
+#       MYSQL_PASSWORD: 1234
+#       MYSQL_ROOT_PASSWORD: 1234
+# volumes:
+#   persistent:
+
+#     null

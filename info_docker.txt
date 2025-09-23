@@ -1,0 +1,35 @@
+ARRANCAR SERVICIOS
+
+docker compose up          # Levanta los contenedores y muestra logs
+docker compose up -d       # Levanta los contenedores en segundo plano (detached)
+docker compose up --build  # Reconstruye las imágenes y levanta todo
+
+APAGAR SERVICIOS
+
+docker compose down        # Detiene y elimina los contenedores
+docker compose stop        # Detiene los contenedores pero NO los elimina
+
+LOGS
+
+docker compose logs                # Muestra logs de todos los servicios
+docker compose logs -f             # Sigue los logs en tiempo real (como tail -f)
+docker compose logs -f decapapeus_nginx   # Logs de un servicio concreto
+
+RECONSTRUCCION
+
+docker compose build               # Reconstruye imágenes (sin levantar)
+docker compose up --build          # Reconstruye y levanta en un solo paso
+
+ESTADO DE CONTENEDORES
+
+docker compose ps                  # Ver qué contenedores están corriendo
+
+ACCEDER A UN CONTENEDOR
+
+docker compose exec decapapeus_php bash    # Entra al contenedor de PHP
+docker compose exec decapapeus_client sh   # Entra al contenedor del cliente
+
+LIMPIAR(CUIDADO🚨)
+
+docker system prune -a              # Limpia TODO (contenedores, imágenes, redes, caché)
+
