@@ -1,4 +1,3 @@
 # DeCapAPeus
-Ecommerce-ProjecteIntermodular
 
-docker compose up --build
+Ver resumen del [Sprint-1](/docs/Sprint-1.odt)
