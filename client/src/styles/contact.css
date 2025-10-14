@@ -1,0 +1,121 @@
+/* Fondo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f2f7;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Título centrado */
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+form {
+    background-color: white;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Filas de formulario para dos columnas */
+.form-row {
+    display: flex;
+    gap: 30px; /* espacio horizontal entre columnas */
+    margin-bottom: 20px; /* espacio vertical entre filas */
+    flex-wrap: wrap; /* para responsive */
+}
+
+/* Cada grupo de label + input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Para el textarea que ocupa toda la fila */
+.form-group.full-width {
+    flex: 1 1 100%;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Campos de texto y área de mensaje */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #99ddee;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 5px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #66c3e3;
+    box-shadow: 0 0 4px rgba(102, 195, 227, 0.5);
+}
+
+/* Checkbox */
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: normal;
+    color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+    transform: scale(0.8); /* más pequeño */
+    margin: 0;
+    cursor: pointer;
+}
+
+.checkbox-group a {
+    color: #66c3e3;
+    text-decoration: none;
+}
+
+.checkbox-group a:hover {
+    text-decoration: underline;
+}
+
+/* Botón enviar */
+input[type="submit"] {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #99ddee;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #66c3e3;
+}
