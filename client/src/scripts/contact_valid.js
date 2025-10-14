@@ -1,9 +1,10 @@
 const form = document.getElementById("contactForm");
 const successMessage = document.getElementById("success-message");
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  // Campos
   const nombre = document.getElementById("name");
   const apellidos = document.getElementById("surname");
   const email = document.getElementById("email");
@@ -16,12 +17,11 @@ form.addEventListener("submit", function (event) {
   limpiarErrores();
   ocultarMensaje();
 
-  // Validaciones
+  // Validaciones cliente
   if (nombre.value.trim() === "") {
     mostrarError(nombre, "Por favor, ingrese su nombre.");
     valido = false;
   }
-
   if (apellidos.value.trim() === "") {
     mostrarError(apellidos, "Por favor, ingrese sus apellidos.");
     valido = false;
@@ -49,17 +49,36 @@ form.addEventListener("submit", function (event) {
     mostrarError(mensaje, "Por favor, ingrese su mensaje.");
     valido = false;
   }
-
   if (!terminos.checked) {
     mostrarError(terminos, "Debe aceptar los términos y condiciones.");
     valido = false;
   }
 
-  // Si todo está correcto
-  if (valido) {
-    mostrarMensaje("✅ ¡Formulario enviado con éxito!");
-    form.reset();
+  if (!valido) return; // Si hay errores, no enviar al servidor
+
+  // Enviar datos al servidor (fetch)
+  const datos = new FormData(form);
+  try {
+    const respuesta = await fetch("http://localhost:8080/contact_valid.php", {
+      method: "POST",
+      body: new FormData(form),
+    });
+    const resultado = await respuesta.json();
+
     limpiarErrores();
+    ocultarMensaje();
+
+    if (resultado.errores) {
+      for (const campo in resultado.errores) {
+        const input = document.getElementById(campoMap[campo]);
+        if (input) mostrarError(input, resultado.errores[campo]);
+      }
+    } else if (resultado.exito) {
+      mostrarMensaje(resultado.exito);
+      form.reset();
+    }
+  } catch (err) {
+    console.error("Error al conectar con el servidor:", err);
   }
 });
 
@@ -81,8 +100,6 @@ function limpiarErrores() {
 function mostrarMensaje(texto) {
   successMessage.textContent = texto;
   successMessage.style.display = "block";
-
-  // Desaparece automáticamente después de 3 segundos
   setTimeout(() => {
     successMessage.style.display = "none";
   }, 3000);
@@ -92,24 +109,30 @@ function ocultarMensaje() {
   successMessage.style.display = "none";
 }
 
-// ---- Validación en tiempo real ----
-const campos = ["nombre", "apellidos", "email", "telefono", "mensaje"];
-campos.forEach((campo) => {
-  const input = document.getElementById(campo);
-  input.addEventListener("input", () => {
-    const formGroup = input.closest(".form-group");
-    const error = formGroup.querySelector(".error");
-    if (input.value.trim() !== "") {
-      error.textContent = "";
-      input.classList.remove("error-border");
-    }
-  });
-});
+// Validación en tiempo real
+const campoMap = {
+  nombre: "name",
+  apellidos: "surname",
+  email: "email",
+  telefono: "tlf",
+  mensaje: "text",
+  terminos: "terms",
+};
 
-document.getElementById("terminos").addEventListener("change", (e) => {
-  const formGroup = e.target.closest(".form-group");
-  const error = formGroup.querySelector(".error");
-  if (e.target.checked) {
-    error.textContent = "";
+for (const key in campoMap) {
+  const input = document.getElementById(campoMap[key]);
+  if (!input) continue;
+  const errorDiv = input.closest(".form-group").querySelector(".error");
+  if (key === "terminos") {
+    input.addEventListener("change", () => {
+      if (input.checked) errorDiv.textContent = "";
+    });
+  } else {
+    input.addEventListener("input", () => {
+      if (input.value.trim() !== "") {
+        errorDiv.textContent = "";
+        input.classList.remove("error-border");
+      }
+    });
   }
-});
+}
