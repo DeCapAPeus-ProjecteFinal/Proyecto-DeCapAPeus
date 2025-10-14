@@ -119,3 +119,47 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #66c3e3;
 }
+
+/* --- Mensajes de error --- */
+small.error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+    height: 1em; /* mantiene el espacio aunque no haya error */
+  }
+  
+  input.error-border,
+  textarea.error-border {
+    border-color: #e74c3c !important;
+  }
+  /* ----------------------- */
+
+  /* Mensajes de error */
+small.error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+    height: 1em;
+  }
+  
+  input.error-border,
+  textarea.error-border {
+    border-color: #e74c3c !important;
+  }
+  
+  /* Mensaje de éxito */
+  .success-message {
+    display: none;
+    width: 600px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
