@@ -93,5 +93,30 @@
       <button type="submit">Enviar</button>
     </form>
     <script src="../scripts/contact_valid.js"></script>
+    <script>
+      // Función para leer los parámetros de la URL
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          nombre: params.get("nombre") || "",
+          apellidos: params.get("apellidos") || "",
+          email: params.get("email") || "",
+          telefono: params.get("telefono") || "",
+          mensaje: params.get("mensaje") || "",
+          terminos: params.get("terminos") === "on",
+        };
+      }
+
+      // Rellenar los campos al cargar la página
+      window.addEventListener("DOMContentLoaded", () => {
+        const datos = getQueryParams();
+        document.getElementById("name").value = datos.nombre;
+        document.getElementById("surname").value = datos.apellidos;
+        document.getElementById("email").value = datos.email;
+        document.getElementById("tlf").value = datos.telefono;
+        document.getElementById("text").value = datos.mensaje;
+        document.getElementById("terms").checked = datos.terminos;
+      });
+    </script>
   </body>
 </html>

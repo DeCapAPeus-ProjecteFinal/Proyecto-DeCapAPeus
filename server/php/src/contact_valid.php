@@ -28,6 +28,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($mensaje)) $errores["mensaje"] = "Por favor, ingrese su mensaje.";
     if (!$terminos) $errores["terminos"] = "Debe aceptar los términos.";
 }
+
+// Construir query string solo si hay errores
+$query = '';
+if (!empty($errores)) {
+    $datos = [
+        'nombre' => $nombre,
+        'apellidos' => $apellidos,
+        'email' => $email,
+        'telefono' => $telefono,
+        'mensaje' => $mensaje,
+        'terminos' => $terminos ? 'on' : ''
+    ];
+    $query = '?' . http_build_query($datos);
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <li><?= $error ?></li>
                 <?php endforeach; ?>
             </ul>
-            <a href="http://localhost:5173/src/pages/contact.html" class="button">Volver al formulario</a>
+            <a href="http://localhost:5173/src/pages/contact.html<?= $query ?>" class="button">Volver al formulario</a>
         <?php else: ?>
             <h2 class="success">✅ Formulario enviado con éxito.</h2>
         <?php endif; ?>

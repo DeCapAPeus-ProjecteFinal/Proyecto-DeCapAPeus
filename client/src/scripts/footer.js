@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const footerHTML = `
+  const footerHTML = `
   <footer class="site-footer">
     <div class="footer-container">
 
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3 class="footer-title">Enlaces de interés</h3>
         <ul class="footer-links">
           <li><a href="/src/pages/sobre-nosotros.html">Sobre nosotros</a></li>
-          <li><a href="/src/pages/contacto.html">Contacto</a></li>
+          <li><a href="/src/pages/contact.html">Formulario contacto</a></li>
           <li><a href="/src/pages/faq.html">Preguntas frecuentes</a></li>
         </ul>
       </div>
@@ -47,5 +47,5 @@ document.addEventListener("DOMContentLoaded", () => {
   </footer>
 `;
 
-    document.getElementById("footer").innerHTML = footerHTML;
+  document.getElementById("footer").innerHTML = footerHTML;
 });
