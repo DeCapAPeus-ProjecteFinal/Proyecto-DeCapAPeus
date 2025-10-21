@@ -1,54 +1,62 @@
 <?php
-// Permitir llamadas desde otros puertos (Vite)
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
-
 // Inicializar variables
 $nombre = $apellidos = $email = $telefono = $mensaje = "";
 $terminos = false;
 $errores = [];
-$exito = "";
 
-// Procesar el formulario al hacer submit
+// Función para limpiar datos
+function limpiar($dato)
+{
+    return htmlspecialchars(stripslashes(trim($dato)));
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Función para limpiar datos
-    function limpiar($dato)
-    {
-        return htmlspecialchars(stripslashes(trim($dato)));
-    }
-
     $nombre = limpiar($_POST["nombre"] ?? "");
     $apellidos = limpiar($_POST["apellidos"] ?? "");
     $email = limpiar($_POST["email"] ?? "");
     $telefono = limpiar($_POST["telefono"] ?? "");
     $mensaje = limpiar($_POST["mensaje"] ?? "");
-    $terminos = isset($_POST["terminos"]) ? true : false;
+    $terminos = isset($_POST["terminos"]);
 
     // Validaciones
     if (empty($nombre)) $errores["nombre"] = "Por favor, ingrese su nombre.";
     if (empty($apellidos)) $errores["apellidos"] = "Por favor, ingrese sus apellidos.";
     if (empty($email)) $errores["email"] = "Por favor, ingrese su email.";
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errores["email"] = "Por favor, ingrese un email válido.";
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errores["email"] = "Email no válido.";
     if (empty($telefono)) $errores["telefono"] = "Por favor, ingrese su teléfono.";
-    elseif (!preg_match("/^[0-9]{9}$/", $telefono)) $errores["telefono"] = "El teléfono debe tener 9 dígitos numéricos.";
+    elseif (!preg_match("/^[0-9]{9}$/", $telefono)) $errores["telefono"] = "Teléfono inválido.";
     if (empty($mensaje)) $errores["mensaje"] = "Por favor, ingrese su mensaje.";
-    if (!$terminos) $errores["terminos"] = "Debe aceptar los términos y condiciones.";
-
-    // Si no hay errores, mensaje de éxito
-    if (empty($errores)) {
-        $exito = "✅ ¡Formulario enviado con éxito!";
-        // Limpiar variables
-        $nombre = $apellidos = $email = $telefono = $mensaje = "";
-        $terminos = false;
-    }
+    if (!$terminos) $errores["terminos"] = "Debe aceptar los términos.";
 }
+?>
 
-// Devolver JSON
-echo json_encode([
-    "errores" => $errores,
-    "exito" => $exito
-]);
-exit;
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado Formulario</title>
+    <link rel="stylesheet" href="valid.css">
+</head>
+
+<body>
+    <div class="result-container">
+        <?php if (!empty($errores)): ?>
+            <h2 class="error-text">Se encontraron errores en el formulario:</h2>
+            <ul class="error-list">
+                <?php foreach ($errores as $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <a href="http://localhost:5173/src/pages/contact.html" class="button">Volver al formulario</a>
+        <?php else: ?>
+            <h2 class="success">✅ Formulario enviado con éxito.</h2>
+        <?php endif; ?>
+
+        <br>
+        <a href="http://localhost:5173/" class="button">Ir a la página de inicio</a>
+    </div>
+</body>
+
+</html>
