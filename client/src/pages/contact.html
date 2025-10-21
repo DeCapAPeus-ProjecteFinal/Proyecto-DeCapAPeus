@@ -11,17 +11,16 @@
     <div id="success-message" class="success-message"></div>
     <br />
     <!-- action="enviar.php" method="POST"  -->
-    <form id="contactForm" action="#" method="POST" novalidate>
+    <form
+      id="contactForm"
+      action="http://localhost/contact_valid.php"
+      method="POST"
+      novalidate
+    >
       <div class="form-row">
         <div class="form-group">
           <label for="nombre">Nombre:</label>
-          <input
-            type="text"
-            id="name"
-            name="nombre"
-            placeholder="Tu nombre"
-            required
-          />
+          <input type="text" id="name" name="nombre" placeholder="Tu nombre" />
           <small class="error"></small>
         </div>
         <div class="form-group">
@@ -31,7 +30,6 @@
             id="surname"
             name="apellidos"
             placeholder="Tus apellidos"
-            required
           />
           <small class="error"></small>
         </div>
@@ -45,7 +43,6 @@
             id="email"
             name="email"
             placeholder="Ej: ejemplo@ejemplo.com"
-            required
           />
           <small class="error"></small>
         </div>
@@ -57,7 +54,6 @@
             name="telefono"
             pattern="[0-9]{9}"
             placeholder="Ej: 600123456"
-            required
           />
           <small class="error"></small>
         </div>
@@ -71,23 +67,30 @@
             name="mensaje"
             rows="3"
             placeholder="Cuéntanos"
-            required
           ></textarea>
           <small class="error"></small>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full-width checkbox-group">
+          <label>
+            <input type="checkbox" id="compro" name="compro" />
+            Quitar la comprobación
+          </label>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group full-width checkbox-group">
           <label>
-            <input type="checkbox" id="terms" name="terminos" required />
+            <input type="checkbox" id="terms" name="terminos" />
             He leído y acepto los <a href="#">términos y condiciones</a>
           </label>
           <small class="error"></small>
         </div>
       </div>
 
-      <input type="submit" value="Enviar" />
+      <button type="submit">Enviar</button>
     </form>
     <script src="../scripts/contact_valid.js"></script>
   </body>
