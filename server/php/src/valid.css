@@ -1,0 +1,57 @@
+body {
+    background-color: #99DDEE !important;
+}
+/* Contenedor principal */
+.result-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Títulos */
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  /* Errores */
+  .error-text {
+    color: #D8000C;
+  }
+  
+  ul.error-list {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    padding-left: 20px;
+  }
+  
+  ul.error-list li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Éxito */
+  h2.success {
+    color: #4CAF50;
+  }
+  
+  /* Botones */
+  a.button {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: white;
+    background-color: #4CAF50;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  a.button:hover {
+    background-color: #45a049;
+  }
+  
