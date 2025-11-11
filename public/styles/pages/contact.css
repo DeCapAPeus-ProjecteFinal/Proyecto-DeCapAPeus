@@ -1,0 +1,60 @@
+/* Página de contacto */
+.contact-form-page {
+  background-color: var(--color-gray-100);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Título */
+.contact-form-page h2 {
+  color: var(--color-gray-800);
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+/* Formulario */
+.contact-form-page form {
+  background-color: var(--color-white);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mensaje de éxito */
+.contact-form-page .success-message {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--color-success-light);
+  color: var(--color-success-dark);
+  border: 1px solid var(--color-success);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Botones cliente/servidor */
+.contact-form-page .buttons-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.contact-form-page .btn-cliente {
+  background-color: var(--color-primary);
+}
+
+.contact-form-page .btn-servidor {
+  background-color: var(--color-secondary);
+}

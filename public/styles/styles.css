@@ -1,0 +1,19 @@
+/* Base */
+@import "base/variables.css";
+@import "base/reset.css";
+@import "base/typography.css";
+
+/* Componentes */
+@import "components/buttons.css";
+@import "components/forms.css";
+@import "components/navbar.css";
+@import "components/footer.css";
+
+/* Layout */
+@import "layout/grid.css";
+@import "layout/spacing.css";
+@import "layout/flex.css";
+
+/* Pages */
+@import "pages/index.css";
+@import "pages/contact.css";

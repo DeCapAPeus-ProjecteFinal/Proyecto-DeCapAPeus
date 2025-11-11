@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    container_name: decapapeus-web
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+    restart: unless-stopped
+#   db:
+#     image: mysql:8.0
+#     ports:
+#       - "3306:3306"
+#     command: --default-authentication-plugin=mysql_native_password
+#     environment:
+#       MYSQL_DATABASE: pruebadb
+#       MYSQL_USER: usuario
+#       MYSQL_PASSWORD: 1234
+#       MYSQL_ROOT_PASSWORD: 1234
+#     volumes:
+#       - persistent:/var/lib/mysql
+#     networks:
+#       - default
+#   phpmyadmin:
+#     image: phpmyadmin/phpmyadmin
+#     links:
+#       - db:db
+#     ports:
+#       - 8000:80
+#     environment:
+#       MYSQL_USER: usuario
+#       MYSQL_PASSWORD: 1234
+#       MYSQL_ROOT_PASSWORD: 1234
+# volumes:
+#   persistent:
+
+#     null

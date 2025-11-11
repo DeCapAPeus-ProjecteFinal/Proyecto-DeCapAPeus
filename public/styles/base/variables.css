@@ -1,0 +1,59 @@
+:root {
+  /* Colores principales */
+  /* Colores principales */
+  --color-header: #99ddee;
+  --color-hover-menu: #d0e4ff;
+  --color-hover-text: #0a4fa3;
+
+  /* Colores de acento */
+  --color-primary: #0a4fa3;
+  --color-primary-dark: #083d80;
+
+  /* Colores neutros */
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray-100: #f9f9f9;
+  --color-gray-200: #f3f2f7;
+  --color-gray-300: #e0e0e0;
+  --color-gray-400: #aaaaaa;
+  --color-gray-500: #555555;
+  --color-gray-600: #4b4b4b;
+  --color-gray-700: #333333;
+
+  /* Colores de estado */
+  --color-success: #4caf50;
+  --color-success-dark: #45a049;
+  --color-error: #e74c3c;
+  --color-error-dark: #d8000c;
+
+  /* Espaciado */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+
+  /* Bordes */
+  --border-radius-sm: 5px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Contenedor */
+  --container-max-width: 1200px;
+  --container-padding: 40px;
+
+  /* z-index */
+  --z-header: 1000;
+  --z-dropdown: 100;
+  --z-overlay: 50;
+}
