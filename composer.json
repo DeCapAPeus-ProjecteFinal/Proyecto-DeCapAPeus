@@ -1,5 +1,5 @@
 {
-    "name": "DeCapAPeus",
+    "name": "decapapeus/decapapeus",
     "description": "Proyecto e-commerce",
     "license" : "MIT",
     "autoload": {
