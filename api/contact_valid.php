@@ -63,13 +63,13 @@ if (!empty($errores)) {
                     <li><?= $error ?></li>
                 <?php endforeach; ?>
             </ul>
-            <a href="http://localhost:5173/src/pages/contact.html<?= $query ?>" class="button">Volver al formulario</a>
+            <a href="http://localhost/pages/contact.html<?= $query ?>" class="button">Volver al formulario</a>
         <?php else: ?>
             <h2 class="success">✅ Formulario enviado con éxito.</h2>
         <?php endif; ?>
 
         <br>
-        <a href="http://localhost:5173/" class="button">Ir a la página de inicio</a>
+        <a href="http://localhost/" class="button">Ir a la página de inicio</a>
     </div>
 </body>
 
