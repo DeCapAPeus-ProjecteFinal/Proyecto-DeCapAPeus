@@ -193,6 +193,7 @@ main {
 /* === Parte inferior: fondo gris claro === */
 .header-bottom {
   background-color: #f3f2f7;
+  border-bottom: 1px solid grey;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -292,6 +293,7 @@ main {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  margin: 3px 0px;
 }
 
 .buscador-wrapper {
