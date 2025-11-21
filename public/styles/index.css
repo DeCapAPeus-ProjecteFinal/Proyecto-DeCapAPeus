@@ -158,3 +158,20 @@
   border-radius: 10px;
   object-fit: cover;
 }
+
+/* Animación general al cargar */
+.producto-destacado .texto,
+.producto-destacado .imagen {
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
