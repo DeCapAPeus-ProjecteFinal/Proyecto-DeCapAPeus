@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir productos - DeCapAPeus</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <div id="header"></div>
+
+    <main class="page-container">
+      <section class="pagina-upload">
+        <div class="pagina-content">
+          <h1>Importar productos</h1>
+          <p>
+            Sube un fichero Excel (.xlsx, .xls) o CSV (.csv) con los datos de
+            los productos. El servidor validará el contenido antes de
+            importarlo.
+          </p>
+
+          <form
+            id="uploadForm"
+            action="/api/upload_products.php"
+            method="POST"
+            enctype="multipart/form-data"
+            novalidate
+          >
+            <label for="productFile"
+              >Selecciona fichero (.xlsx, .xls, .csv):</label
+            >
+            <input
+              type="file"
+              id="productFile"
+              name="productFile"
+              accept=".xlsx,.xls,.csv"
+              required
+            />
+
+            <div id="uploadInfo" class="upload-info" aria-live="polite"></div>
+
+            <div class="form-actions">
+              <button type="submit" id="uploadBtn" class="btn-comprar">
+                Subir archivo
+              </button>
+              <a href="/" class="btn-comprar btn-secundario"
+                >Volver al inicio</a
+              >
+            </div>
+          </form>
+
+          <aside class="upload-notes">
+            <h2>Notas</h2>
+            <ul>
+              <li>Extensiones permitidas: .xlsx, .xls, .csv</li>
+              <li>Tamaño máximo recomendado: 5 MB</li>
+              <li>
+                Se validarán columnas esperadas (Nombre, Precio, Stock, ...)
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="/scripts/include-partials.js"></script>
+    <script src="/scripts/upload.js"></script>
+  </body>
+</html>
