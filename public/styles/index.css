@@ -2,7 +2,7 @@
 .producto-destacado {
   width: 100%;
   position: relative; /* necesario para el overlay */
-  background-image: url("/images/fondo-destacado.jpg");
+  background-image: url("/imagenes/fondo-destacado.jpg");
   background-size: cover;
   background-position: center;
   padding: 60px 40px;
