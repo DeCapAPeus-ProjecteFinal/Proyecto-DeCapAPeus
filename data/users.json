@@ -1,0 +1,13 @@
+{
+    "usuaris": [
+        {
+            "nom_usuari": "Patata",
+            "contrasenya": "$2y$10$IOgYsVpd\/lEQId0vYvq.AOL8pcwT8UgiFtrme7fKMc90CWuSIgCxi",
+            "email": "patata@patata.com",
+            "nom": "Marti",
+            "cognoms": "Moll Segui",
+            "data_registre": "2025-11-24T17:26:17+00:00",
+            "id": 1
+        }
+    ]
+}
