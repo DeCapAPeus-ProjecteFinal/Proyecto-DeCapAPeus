@@ -10,6 +10,12 @@
     justify-content: center;
     padding: 60px 20px;
 }
+.register-form-container{
+    padding-top: 100px;
+}
+.profile-form-container{
+    padding-top: 130px;
+}
 
 .login-form-container h2,
 .profile-form-container h2,

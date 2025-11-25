@@ -21,7 +21,10 @@ echo '<!DOCTYPE html>
     </style>
 </head>
 <body>
+    <div id="header"></div>
     <p class="mensaje">Sesión cerrada correctamente. Redirigiendo a login...</p>
+    <div id="footer"></div>
+    <script src="/scripts/include-partials.js"></script>
 </body>
 </html>';
 exit;

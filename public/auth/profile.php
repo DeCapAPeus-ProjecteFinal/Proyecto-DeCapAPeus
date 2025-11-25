@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+    <div id="header"></div>
 
     <div class="profile-form-container">
         <h2>Perfil de <?= htmlspecialchars($user['nom_usuari']); ?></h2>
@@ -105,10 +106,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php endif; ?>
 
         <!-- Datos del perfil -->
-        <p><strong>Nombre de Usuario:</strong> <?= htmlspecialchars($user['nom_usuari']); ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']); ?></p>
-        <p><strong>Nombre:</strong> <?= htmlspecialchars($user['nom']); ?></p>
-        <p><strong>Apellidos:</strong> <?= htmlspecialchars($user['cognoms']); ?></p>
+        <table cellpadding="8" cellspacing="0">
+            <tr>
+                <td>Nombre de Usuario:</td>
+                <td><?= htmlspecialchars($user['nom_usuari']); ?></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><?= htmlspecialchars($user['email']); ?></td>
+            </tr>
+            <tr>
+                <td>Nombre:</td>
+                <td><?= htmlspecialchars($user['nom']); ?></td>
+            </tr>
+            <tr>
+                <td>Apellidos:</td>
+                <td><?= htmlspecialchars($user['cognoms']); ?></td>
+            </tr>
+        </table>
 
         <h3>Actualizar perfil</h3>
         <form method="POST">
@@ -139,6 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <a class="profile-link" href="http://localhost/auth/logout.php">Cerrar sesión</a>
         <a class="profile-link" href="http://localhost">Volver al inicio</a> <!-- Canviar mas tarde -->
     </div>
+    <div id="footer"></div>
+    <script src="/scripts/include-partials.js"></script>
 
 </body>
 
