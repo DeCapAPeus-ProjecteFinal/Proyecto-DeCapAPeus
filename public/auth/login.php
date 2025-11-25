@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-
+    <div id="header"></div>
     <div class="login-form-container">
         <h2>Login</h2>
 
@@ -99,7 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p>¿No tienes cuenta? <a class="login-link" href="http://localhost/auth/register.php">Registrarse</a></p>
         <a class="login-link" href="http://localhost">Volver al inicio</a>
     </div>
-
+    <div id="footer"></div>
+    <script src="/scripts/include-partials.js"></script>
 </body>
 
 </html>

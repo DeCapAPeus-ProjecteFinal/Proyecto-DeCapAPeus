@@ -1,0 +1,49 @@
+{
+    "productes": [
+        {
+            "id": 1,
+            "sku": "1",
+            "nom": "bufanda",
+            "descripcio": "bufanda marron",
+            "img": "\/imagenes\/bufanda-resized.jpg",
+            "preu": 15.9,
+            "estoc": 26
+        },
+        {
+            "id": 2,
+            "sku": "2",
+            "nom": "cartera",
+            "descripcio": "cartera negra",
+            "img": "\/imagenes\/cartera-resized.jpg",
+            "preu": 34,
+            "estoc": 14
+        },
+        {
+            "id": 3,
+            "sku": "3",
+            "nom": "gorra",
+            "descripcio": "gorra canada",
+            "img": "\/imagenes\/gorra-resized.jpg",
+            "preu": 12.5,
+            "estoc": 15
+        },
+        {
+            "id": 4,
+            "sku": "4",
+            "nom": "guantes",
+            "descripcio": "guantes negros",
+            "img": "\/imagenes\/guantes-resized.jpg",
+            "preu": 9,
+            "estoc": 20
+        },
+        {
+            "id": 5,
+            "sku": "5",
+            "nom": "mochila",
+            "descripcio": "mochila campera",
+            "img": "\/imagenes\/mochila-resized.jpg",
+            "preu": 27,
+            "estoc": 18
+        }
+    ]
+}

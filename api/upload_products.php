@@ -102,7 +102,8 @@ $keyMap = [
     'descripcio' => ['descripcio', 'descripcion', 'descripció', 'description', 'desc'],
     'img' => ['img', 'imagen', 'image', 'foto'],
     'preu' => ['preu', 'precio', 'price', 'preu€'],
-    'estoc' => ['estoc', 'stock', 'cantidad', 'qty', 'quantitat']
+    'estoc' => ['estoc', 'stock', 'cantidad', 'qty', 'quantitat'],
+    'destacado' => ['destacado', 'featured', 'destacat']
 ];
 
 // Invertir headers map: map column letter to target key if matches
@@ -210,6 +211,14 @@ foreach ($rows as $r) {
         continue;
     }
 
+    $destacadoRaw = $item['destacado'] ?? '';
+    $destacado = false;
+
+    if ($destacadoRaw !== '') {
+        $v = strtolower($destacadoRaw);
+        $destacado = in_array($v, ['1', 'si', 'sí', 'true', 'yes'], true);
+    }
+
     $maxId++;
     $new = [
         'id' => $maxId,
@@ -218,7 +227,8 @@ foreach ($rows as $r) {
         'descripcio' => $item['descripcio'] ?? '',
         'img' => $item['img'] ?? '',
         'preu' => $price,
-        'estoc' => $stock
+        'estoc' => $stock,
+        'destacado' => $destacado
     ];
 
     $newProducts[] = $new;

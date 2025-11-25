@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-
+    <div id="header"></div>
     <div class="register-form-container">
         <h2>Registrar</h2>
 
@@ -145,7 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <br>
         <a class="register-link" href="http://localhost">Volver al inicio</a>
     </div>
-
+    <div id="footer"></div>
+    <script src="/scripts/include-partials.js"></script>
 </body>
 
 </html>

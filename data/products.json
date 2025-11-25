@@ -2,48 +2,53 @@
     "productes": [
         {
             "id": 1,
-            "sku": "A001",
-            "nom": "Cafetera Premium",
-            "descripcio": "Cafetera automàtica amb molinet integrat",
-            "img": "img\/cafetera.jpg",
-            "preu": 129.99,
-            "estoc": 15
+            "sku": "1",
+            "nom": "Bufanda Marrón",
+            "descripcio": "Suave, cálida y perfecta para el día a día. Un toque elegante para cualquier look de invierno.",
+            "img": "\/imagenes\/bufanda-resized.jpg",
+            "preu": 15.9,
+            "estoc": 26,
+            "destacado": true
         },
         {
             "id": 2,
-            "sku": "A002",
-            "nom": "Tetera Elèctrica",
-            "descripcio": "Tetera d’acer inoxidable amb control de temperatura",
-            "img": "img\/tetera.jpg",
-            "preu": 59.95,
-            "estoc": 10
+            "sku": "2",
+            "nom": "Cartera Negra",
+            "descripcio": "Diseño moderno y resistente con espacio para todo. Elegancia compacta que combina con todo.",
+            "img": "\/imagenes\/cartera-resized.jpg",
+            "preu": 34,
+            "estoc": 14,
+            "destacado": false
         },
         {
             "id": 3,
-            "sku": "A003",
-            "nom": "Molinet de Cafè Manual",
-            "descripcio": "Molinet manual de ceràmica amb regulació de mòlta",
-            "img": "img\/molinet.jpg",
-            "preu": 39.9,
-            "estoc": 25
+            "sku": "3",
+            "nom": "Gorra Hoja de Canadá",
+            "descripcio": "Estilo urbano con el icónico símbolo canadiense. Ajustable, ligera y lista para cualquier plan.",
+            "img": "\/imagenes\/gorra-resized.jpg",
+            "preu": 12.5,
+            "estoc": 15,
+            "destacado": false
         },
         {
             "id": 4,
-            "sku": "A004",
-            "nom": "Vaporitzador de Llet",
-            "descripcio": "Vaporitzador elèctric per llet calenta i escumosa",
-            "img": "img\/vaporitzador.jpg",
-            "preu": 24.5,
-            "estoc": 30
+            "sku": "4",
+            "nom": "Guantes Negros",
+            "descripcio": "Cálidos y resistentes. Perfectos para proteger tus manos del frío en cualquier actividad diaria o al aire libre.",
+            "img": "\/imagenes\/guantes-resized.jpg",
+            "preu": 9,
+            "estoc": 20,
+            "destacado": false
         },
         {
             "id": 5,
-            "sku": "1",
-            "nom": "producto1",
-            "descripcio": "desc del prod 1",
-            "img": "ruta img",
-            "preu": 15.9,
-            "estoc": 8
+            "sku": "5",
+            "nom": "Mochila Campera",
+            "descripcio": "Robusta y versátil. Ideal para aventuras, viajes o el día a día con máxima comodidad.",
+            "img": "\/imagenes\/mochila-resized.jpg",
+            "preu": 27,
+            "estoc": 18,
+            "destacado": false
         }
     ]
 }
