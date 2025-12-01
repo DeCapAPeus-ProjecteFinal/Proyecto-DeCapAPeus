@@ -1,0 +1,22 @@
+{
+    "usuaris": [
+        {
+            "nom_usuari": "Patata",
+            "contrasenya": "$2y$10$IOgYsVpd\/lEQId0vYvq.AOL8pcwT8UgiFtrme7fKMc90CWuSIgCxi",
+            "email": "patata@patata.com",
+            "nom": "Marti",
+            "cognoms": "Moll Segui",
+            "data_registre": "2025-11-24T17:26:17+00:00",
+            "id": 1
+        },
+        {
+            "nom_usuari": "Admin",
+            "contrasenya": "$2y$10$9U7ZNpN8ebCBR2EzL2AC0OJNfPq.SxVFnnO6CYPszJaYwkPng.N72",
+            "email": "admin@admin.es",
+            "nom": "Admin",
+            "cognoms": "admin",
+            "data_registre": "2025-11-27T15:04:51+00:00",
+            "id": 2
+        }
+    ]
+}
