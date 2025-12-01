@@ -1,6 +1,6 @@
 # Proyecto DeCapAPeus
 
-Proyecto de tienda online de ropa y complementos.
+Proyecto de tienda online de complementos y taller de zapatería.
 
 ## Enlaces Importantes
 
