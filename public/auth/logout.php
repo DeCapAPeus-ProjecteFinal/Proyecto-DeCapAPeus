@@ -14,17 +14,14 @@ echo '<!DOCTYPE html>
     <meta charset="UTF-8">
     <title>Cerrando sesión</title>
     <!-- Redirigir después de 2 segundos -->
-    <meta http-equiv="refresh" content="2;url=http://localhost/auth/login.php">
+    <meta http-equiv="refresh" content="2;url=/auth/login.php">
     <style>
         body { font-family: sans-serif; text-align: center; padding-top: 50px; }
         .mensaje { color: #006600; font-size: 1.2em; }
     </style>
 </head>
 <body>
-    <div id="header"></div>
     <p class="mensaje">Sesión cerrada correctamente. Redirigiendo a login...</p>
-    <div id="footer"></div>
-    <script src="/scripts/include-partials.js"></script>
 </body>
 </html>';
 exit;

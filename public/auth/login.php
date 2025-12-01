@@ -10,11 +10,18 @@ function limpiar($dato)
 $errores = [];
 $userName = '';
 
+$redirect_to = $_REQUEST['redirect_to'] ?? '/';
+
+// Validate redirect_to to prevent open redirect vulnerabilities
+if (!str_starts_with($redirect_to, '/')) {
+    $redirect_to = '/';
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Sanitizar
     $userName = limpiar($_POST["userName"] ?? "");
-    $passwd = $_POST["passwd"] ?? ""; // no se escapa nunca una password
+    $passwd = $_POST["passwd"] ?? "";
 
     // Validaciones
     if (empty($userName)) {
@@ -43,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['user_id'] = $user['id'];
                 setcookie('user_id', $user['id'], time() + 3600, "/");
 
-                header("Location: profile.php");
+                header("Location: " . $redirect_to);
                 exit;
             } else {
                 $errores["passwd"] = "Contraseña incorrecta.";
@@ -94,10 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
             <button class="login-btn" type="submit">Entrar</button>
+            <input type="hidden" name="redirect_to" value="<?= htmlspecialchars($redirect_to) ?>">
         </form>
 
-        <p>¿No tienes cuenta? <a class="login-link" href="http://localhost/auth/register.php">Registrarse</a></p>
-        <a class="login-link" href="http://localhost">Volver al inicio</a>
+        <p>¿No tienes cuenta? <a class="login-link" href="/auth/register.php">Registrarse</a></p>
+        <a class="login-link" href="/">Volver al inicio</a>
     </div>
     <div id="footer"></div>
     <script src="/scripts/include-partials.js"></script>
