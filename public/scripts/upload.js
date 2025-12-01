@@ -46,28 +46,122 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
     const f = fileInput.files[0];
     if (!f) {
-      e.preventDefault();
       showMessage("Selecciona un fichero antes de subir.", "error");
       return;
     }
 
     const ext = getExt(f.name);
     if (!ALLOWED.includes(ext)) {
-      e.preventDefault();
       showMessage("Extensión no permitida. Usa .xlsx, .xls o .csv.", "error");
       return;
     }
 
     if (f.size > MAX_SIZE) {
-      e.preventDefault();
       showMessage("El fichero supera el tamaño máximo de 5 MB.", "error");
       return;
     }
 
-    // Dejar que el formulario se envíe normalmente.
+    // Preparar envío AJAX
     showMessage("Subiendo archivo... Por favor espera.", "info");
+    const formData = new FormData(form);
+    const resultDiv = document.getElementById("uploadResult");
+    resultDiv.innerHTML = ""; // Limpiar resultados anteriores
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+      });
+
+      // Intentar parsear JSON incluso si el status no es 200 (para leer errores del backend)
+      let data;
+      try {
+        data = await response.json();
+      } catch (err) {
+        throw new Error("Respuesta del servidor no válida (no es JSON).");
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || `Error del servidor: ${response.status}`);
+      }
+
+      // Éxito: Renderizar resultados
+      showMessage("Proceso completado.", "success");
+      renderResults(data, resultDiv);
+
+    } catch (error) {
+      console.error(error);
+      showMessage(error.message, "error");
+    }
   });
+
+  function renderResults(data, container) {
+    let html = `
+      <div class="upload-summary">
+        <h3>Resumen de Importación</h3>
+        <ul>
+          <li><strong>Importados (Nuevos):</strong> ${data.imported}</li>
+          <li><strong>Actualizados:</strong> ${data.updated || 0}</li>
+          <li><strong>Ignorados:</strong> ${data.ignored}</li>
+        </ul>
+      </div>
+    `;
+
+    // Tabla de Actualizados
+    if (data.updates && data.updates.length > 0) {
+      html += `
+        <div class="upload-details">
+          <h4>Productos Actualizados</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>SKU</th>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.updates.map(u => `
+                <tr>
+                  <td>${u.sku}</td>
+                  <td>${u.nom}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // Tabla de Errores
+    if (data.errors && data.errors.length > 0) {
+      html += `
+        <div class="upload-details error-details">
+          <h4>Errores / Ignorados</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Fila</th>
+                <th>Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.errors.map(e => `
+                <tr>
+                  <td>${e.row}</td>
+                  <td>${e.reason}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+  }
 });

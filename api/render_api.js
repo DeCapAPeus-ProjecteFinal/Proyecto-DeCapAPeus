@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000";
+const URL = "http://localhost:3000"; // /api para producción
 const PRODUCTS = "/productes";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -153,13 +153,13 @@ function renderProductPage(product) {
    OBTENER PRODUCTOS DB JSON SERVER
 ============================ */
 async function getDBProducts() {
-  const response = await fetch(URL + PRODUCTS);
+  const response = await fetch(URL + PRODUCTS, { cache: "no-store" });
   if (!response.ok) throw new Error("Productos no encontrados");
   return await response.json();
 }
 
 async function getDBProduct(productId) {
-  const response = await fetch(URL + PRODUCTS + "/" + productId);
+  const response = await fetch(URL + PRODUCTS + "/" + productId, { cache: "no-store" });
   if (!response.ok) throw new Error("Producto no encontrado");
   return await response.json();
 }
@@ -290,7 +290,7 @@ function assignBuyListeners() {
     btn.addEventListener("click", () => {
       const id = btn.dataset.id;
       if (id) {
-        window.location.href = `http://localhost/pages/product-info.html?id=${id}`;
+        window.location.href = `/pages/product-info.html?id=${id}`;
       }
     });
 
