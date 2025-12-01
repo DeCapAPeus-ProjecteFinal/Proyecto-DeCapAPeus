@@ -1,14 +1,20 @@
-# DeCapAPeus
+# Proyecto DeCapAPeus
 
-Documentacion del [Sprint-1](/docs/Sprint-1.pdf)
+Proyecto de tienda online de ropa y complementos.
 
-## Entregable en rama main
-[Entregable](https://github.com/DeCapAPeus-ProjecteFinal/Proyecto-DeCapAPeus/tree/main)
+## Enlaces Importantes
 
-## Kanban de GitHub Projects
-[Kanban](https://github.com/orgs/DeCapAPeus-ProjecteFinal/projects/1)
+- **Entregable (Sprint 2):** [Ver en GitHub](https://github.com/DeCapAPeus-ProjecteFinal/Proyecto-DeCapAPeus/tree/Sprint2)
+- **Gestión del Proyecto (Kanban):** [GitHub Projects](https://github.com/orgs/DeCapAPeus-ProjecteFinal/projects/1)
 
----
-#### Comentarios
-- Lo tenemos separado en cliente - servidor a falta de hablar con Nacho para que nos explique como juntarlo todo. 
-- Levantar por un lado el cliente con ***npm run dev*** estando en la carpeta cliente y por otro lado el servidor con ***docker compose up*** estando en la carpeta servidor.
+## Despliegue
+
+El proyecto está contenerizado con Docker. Para iniciarlo:
+
+```bash
+docker compose up -d
+```
+
+Esto levantará:
+- Servidor Web (Apache/PHP) en el puerto 80.
+- JSON Server (API de productos) en el puerto 3000 (accesible internamente y proxyado por Apache).
