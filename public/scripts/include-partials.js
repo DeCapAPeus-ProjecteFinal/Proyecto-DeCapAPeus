@@ -11,7 +11,24 @@ async function includePartial(selector, url) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  includePartial("#header", "/includes/header.html");
+document.addEventListener("DOMContentLoaded", async () => {
+  await includePartial("#header", "/includes/header.php");
   includePartial("#footer", "/includes/footer.html");
+
+  // Handle login/profile button click
+  const loginBtn = document.querySelector(".btn-login");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      let url = loginBtn.dataset.url;
+      if (url && url.includes("/auth/login.php")) {
+        const currentUrl = encodeURIComponent(
+          window.location.pathname + window.location.search
+        );
+        url += `?redirect_to=${currentUrl}`;
+      }
+      if (url) {
+        window.location.href = url;
+      }
+    });
+  }
 });
