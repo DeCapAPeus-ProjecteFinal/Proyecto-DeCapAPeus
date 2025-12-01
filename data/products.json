@@ -49,6 +49,16 @@
             "preu": 27,
             "estoc": 18,
             "destacado": false
+        },
+        {
+            "id": 6,
+            "sku": "AJAX-1",
+            "nom": "Producto AJAX",
+            "descripcio": "",
+            "img": "",
+            "preu": 10,
+            "estoc": 100,
+            "destacado": false
         }
     ]
 }
