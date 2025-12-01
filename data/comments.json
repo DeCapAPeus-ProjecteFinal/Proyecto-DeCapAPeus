@@ -13,7 +13,7 @@
             "product_id": 3,
             "user_id": 1,
             "text": "B\u00e9, per\u00f2 crec que podria ser m\u00e9s econ\u00f2mic.",
-            "rating": 3,
+            "rating": 4,
             "date": "2025-11-27 16:10"
         },
         {
@@ -31,6 +31,22 @@
             "text": "gsegg",
             "rating": 5,
             "date": "2025-11-27 16:27"
+        },
+        {
+            "id": 6,
+            "product_id": 3,
+            "user_id": 2,
+            "text": "esgesg",
+            "rating": 5,
+            "date": "2025-12-01 15:18"
+        },
+        {
+            "id": 8,
+            "product_id": 3,
+            "user_id": 1,
+            "text": "muy buen producto",
+            "rating": 5,
+            "date": "2025-12-01 16:15"
         }
     ]
 }

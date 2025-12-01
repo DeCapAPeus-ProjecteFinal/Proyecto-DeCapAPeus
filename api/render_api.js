@@ -102,12 +102,10 @@ function renderProductPage(product) {
         <p>${product.descripcio}</p>
         <p><strong>Precio:</strong> ${product.preu}€</p>
         <button class="btn">Comprar</button>
-        <button id="btn-like" class="btn">👍 Me gusta</button>
+        <button id="btn-like" class="btn-heart">🤍</button>
         <span id="like-count">0</span>
       </div>
     </div>
-
-    
 
     <div class="comentarios">
       <h2>Comentarios</h2>
@@ -121,13 +119,14 @@ function renderProductPage(product) {
         <textarea name="comment" placeholder="Escribe tu comentario..." required></textarea>
 
         <label>Puntuación:</label>
-        <select name="rating">
-          <option value="5">★★★★★ (5)</option>
-          <option value="4">★★★★☆ (4)</option>
-          <option value="3">★★★☆☆ (3)</option>
-          <option value="2">★★☆☆☆ (2)</option>
-          <option value="1">★☆☆☆☆ (1)</option>
-        </select>
+        <div id="star-rating">
+          <span class="star" data-value="1">☆</span>
+          <span class="star" data-value="2">☆</span>
+          <span class="star" data-value="3">☆</span>
+          <span class="star" data-value="4">☆</span>
+          <span class="star" data-value="5">☆</span>
+        </div>
+        <input type="hidden" name="rating" value="5" />
 
         <button type="submit" class="btn">Enviar</button>
       </form>
@@ -137,8 +136,17 @@ function renderProductPage(product) {
   // Cargar comentarios existentes
   loadComments(product.id);
 
+  // Iniciar polling inteligente basado en timestamp
+  startTimestampPolling(product.id);
+
+  // Cargar y manejar "Me gusta"
+  loadLikeCount(product.id);
+  checkUserLikeStatus(product.id);
+  enableLikeButton(product.id);
+
   // Enviar comentario nuevo
   enableCommentForm(product.id);
+  enableStarRating();
 }
 
 /* ============================
@@ -170,6 +178,8 @@ function getCookie(name) {
   CARGAR COMENTARIOS
 ============================ */
 let currentProductId = null; // Guardamos el producto actual
+let lastCommentsTimestamp = 0;
+let timestampPollingInterval = null;
 
 async function loadComments(productId) {
   currentProductId = productId;
@@ -178,9 +188,12 @@ async function loadComments(productId) {
   box.innerHTML = "<p>Cargando comentarios...</p>";
 
   const res = await fetch(
-    `/../api/comments_api.php?action=list&productId=${productId}`
+    `/api/comments_api.php?action=list&productId=${productId}`
   );
-  const comments = await res.json();
+  const data = await res.json();
+
+  // Asegurarse de que sea un array
+  const comments = Array.isArray(data) ? data : [];
 
   if (!comments.length) {
     box.innerHTML = "<p>No hay comentarios aún.</p>";
@@ -192,11 +205,12 @@ async function loadComments(productId) {
   box.innerHTML = comments
     .map((c) => {
       const isOwner = c.user_id === loggedUserId;
+      const starsHtml = renderStars(c.rating);
 
       return `
       <div class="comentario" data-id="${c.id}">
         <p><strong>${c.username}</strong> — ${c.date}</p>
-        <p>${"★".repeat(c.rating)}${"☆".repeat(5 - c.rating)}</p>
+        <div class="stars">${starsHtml}</div>
         <p class="text">${c.text}</p>
 
         ${
@@ -295,7 +309,7 @@ function enableCommentActions() {
 
       if (!confirm("¿Seguro que quieres eliminar este comentario?")) return;
 
-      const res = await fetch("/../api/comments_api.php?action=delete", {
+      const res = await fetch("/api/comments_api.php?action=delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
@@ -371,7 +385,7 @@ function enableCommentActions() {
           return;
         }
 
-        const res = await fetch("/../api/comments_api.php?action=update", {
+        const res = await fetch("/api/comments_api.php?action=update", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id, text: nuevoTexto, rating: nuevoRating }),
@@ -384,6 +398,171 @@ function enableCommentActions() {
           alert(data.error);
         }
       });
+    });
+  });
+}
+
+/* ============================
+   "ME GUSTA" - CORAZÓN
+============================ */
+
+async function loadLikeCount(productId) {
+  const res = await fetch(
+    `/api/likes_api.php?productId=${productId}&action=count`
+  );
+  const data = await res.json();
+
+  if (data.likes !== undefined) {
+    document.querySelector("#like-count").textContent = data.likes;
+  }
+}
+
+async function checkUserLikeStatus(productId) {
+  const res = await fetch(
+    `/api/likes_api.php?productId=${productId}&action=check`
+  );
+  const data = await res.json();
+
+  const button = document.querySelector("#btn-like");
+  if (!button) return;
+
+  if (data.liked) {
+    button.textContent = "❤️"; // Corazón lleno
+  } else {
+    button.textContent = "🤍"; // Corazón vacío
+  }
+}
+
+function enableLikeButton(productId) {
+  const button = document.querySelector("#btn-like");
+  if (!button) {
+    console.error("Botón #btn-like no encontrado.");
+    return;
+  }
+
+  button.addEventListener("click", async () => {
+    const res = await fetch("/api/likes_api.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: productId,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      document.querySelector("#like-count").textContent = data.likes;
+      // Alternar visualmente el corazón
+      if (data.action === "added") {
+        button.textContent = "❤️"; // Lleno
+      } else if (data.action === "removed") {
+        button.textContent = "🤍"; // Vacío
+      }
+    } else {
+      console.error("Error en la API de likes:", data);
+    }
+  });
+}
+
+/* ============================
+   POLLING INTELIGENTE POR TIMESTAMP
+============================ */
+
+function startTimestampPolling(productId) {
+  if (timestampPollingInterval) {
+    clearInterval(timestampPollingInterval);
+  }
+
+  timestampPollingInterval = setInterval(async () => {
+    try {
+      const res = await fetch(
+        `/api/check_comments_update.php?lastTimestamp=${lastCommentsTimestamp}&productId=${productId}`
+      );
+      const data = await res.json();
+
+      if (data.changed) {
+        console.log("Archivo de comentarios modificado, recargando...");
+        lastCommentsTimestamp = data.timestamp;
+        loadComments(productId);
+      } else {
+        // Opcional: actualizar timestamp si no cambió
+        lastCommentsTimestamp = data.timestamp;
+      }
+    } catch (err) {
+      console.error("Error en polling de comentarios:", err);
+    }
+  }, 5000); // Cada 5 segundos
+}
+
+function stopTimestampPolling() {
+  if (timestampPollingInterval) {
+    clearInterval(timestampPollingInterval);
+    timestampPollingInterval = null;
+  }
+}
+
+/* ============================
+   ESTRELLAS
+============================ */
+
+function renderStars(rating) {
+  let stars = "";
+  for (let i = 1; i <= 5; i++) {
+    stars += `<span class="star-display ${i <= rating ? "filled" : ""}">${
+      i <= rating ? "★" : "☆"
+    }</span>`;
+  }
+  return stars;
+}
+
+function enableStarRating() {
+  const stars = document.querySelectorAll("#star-rating .star");
+  const input = document.querySelector('input[name="rating"]');
+
+  stars.forEach((star) => {
+    star.addEventListener("click", () => {
+      const value = parseInt(star.dataset.value);
+      input.value = value;
+
+      stars.forEach((s, index) => {
+        if (index < value) {
+          s.textContent = "★";
+          s.classList.add("filled");
+        } else {
+          s.textContent = "☆";
+          s.classList.remove("filled");
+        }
+      });
+    });
+
+    star.addEventListener("mouseover", () => {
+      const value = parseInt(star.dataset.value);
+
+      stars.forEach((s, index) => {
+        if (index < value) {
+          s.textContent = "★";
+          s.classList.add("filled");
+        } else {
+          s.textContent = "☆";
+          s.classList.remove("filled");
+        }
+      });
+    });
+  });
+
+  document.querySelector("#star-rating").addEventListener("mouseleave", () => {
+    const currentValue = parseInt(input.value);
+    stars.forEach((s, index) => {
+      if (index < currentValue) {
+        s.textContent = "★";
+        s.classList.add("filled");
+      } else {
+        s.textContent = "☆";
+        s.classList.remove("filled");
+      }
     });
   });
 }
