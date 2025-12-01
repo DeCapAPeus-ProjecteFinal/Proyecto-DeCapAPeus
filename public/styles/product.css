@@ -102,4 +102,20 @@
       max-width: 100%;
     }
   }
+  .stars .star-display {
+    color: #ddd; /* Gris claro por defecto */
+  }
   
+  .stars .star-display.filled {
+    color: gold; /* Amarillo cuando está relleno */
+  }
+  
+  #star-rating .star {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #ddd;
+  }
+  
+  #star-rating .star.filled {
+    color: gold;
+  }
