@@ -149,7 +149,7 @@ if ($action === "delete" && $_SERVER['REQUEST_METHOD'] === "POST") {
 
 /* ───────────────────────────────────────────────
    EDITAR COMENTARIO
-   POST ?action=edit
+   POST ?action=update
 ─────────────────────────────────────────────── */
 if ($action === "update" && $_SERVER['REQUEST_METHOD'] === "POST") {
 

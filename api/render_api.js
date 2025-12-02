@@ -159,7 +159,9 @@ async function getDBProducts() {
 }
 
 async function getDBProduct(productId) {
-  const response = await fetch(URL + PRODUCTS + "/" + productId, { cache: "no-store" });
+  const response = await fetch(URL + PRODUCTS + "/" + productId, {
+    cache: "no-store",
+  });
   if (!response.ok) throw new Error("Producto no encontrado");
   return await response.json();
 }
@@ -328,30 +330,23 @@ function enableCommentActions() {
       const commentDiv = document.querySelector(`.comentario[data-id="${id}"]`);
       const textP = commentDiv.querySelector(".text");
       const currentText = textP.textContent.trim();
-      const currentRating = commentDiv.dataset.rating || 5; // si guardamos rating en data-attribute
+      // Obtener el rating actual del comentario desde las estrellas visibles
+      const starsContainer = commentDiv.querySelector(".stars");
+      const currentRating = getRatingFromStars(starsContainer);
 
-      // Crear formulario de edición
+      // Crear formulario de edición con estrellas interactivas
       const formHtml = `
         <div class="edit-form">
           <textarea name="edit-text">${currentText}</textarea>
           <label>Puntuación:</label>
-          <select name="edit-rating">
-            <option value="5" ${
-              currentRating == 5 ? "selected" : ""
-            }>★★★★★ (5)</option>
-            <option value="4" ${
-              currentRating == 4 ? "selected" : ""
-            }>★★★★☆ (4)</option>
-            <option value="3" ${
-              currentRating == 3 ? "selected" : ""
-            }>★★★☆☆ (3)</option>
-            <option value="2" ${
-              currentRating == 2 ? "selected" : ""
-            }>★★☆☆☆ (2)</option>
-            <option value="1" ${
-              currentRating == 1 ? "selected" : ""
-            }>★☆☆☆☆ (1)</option>
-          </select>
+          <div class="edit-star-rating">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="edit-rating" value="${currentRating}" />
           <button type="button" class="btn-save">Guardar</button>
           <button type="button" class="btn-cancel">Cancelar</button>
         </div>
@@ -364,12 +359,67 @@ function enableCommentActions() {
 
       const formDiv = commentDiv.querySelector(".edit-form");
       const textarea = formDiv.querySelector("textarea");
-      const select = formDiv.querySelector("select");
+      const stars = formDiv.querySelectorAll(".edit-star-rating .star");
+      const input = formDiv.querySelector('input[name="edit-rating"]');
+
+      // Inicializar estrellas con el valor actual
+      stars.forEach((star, index) => {
+        if (index < currentRating) {
+          star.textContent = "★";
+          star.classList.add("filled");
+        }
+      });
+
+      // Listener para estrellas en edición
+      stars.forEach((star) => {
+        star.addEventListener("click", () => {
+          const value = parseInt(star.dataset.value);
+          input.value = value;
+
+          stars.forEach((s, index) => {
+            if (index < value) {
+              s.textContent = "★";
+              s.classList.add("filled");
+            } else {
+              s.textContent = "☆";
+              s.classList.remove("filled");
+            }
+          });
+        });
+
+        star.addEventListener("mouseover", () => {
+          const value = parseInt(star.dataset.value);
+
+          stars.forEach((s, index) => {
+            if (index < value) {
+              s.textContent = "★";
+              s.classList.add("filled");
+            } else {
+              s.textContent = "☆";
+              s.classList.remove("filled");
+            }
+          });
+        });
+      });
+
+      formDiv
+        .querySelector(".edit-star-rating")
+        .addEventListener("mouseleave", () => {
+          const currentValue = parseInt(input.value);
+          stars.forEach((s, index) => {
+            if (index < currentValue) {
+              s.textContent = "★";
+              s.classList.add("filled");
+            } else {
+              s.textContent = "☆";
+              s.classList.remove("filled");
+            }
+          });
+        });
 
       // Cancelar
       formDiv.querySelector(".btn-cancel").addEventListener("click", () => {
         textarea.remove();
-        select.remove();
         formDiv.remove();
         textP.style.display = "block";
         commentDiv.querySelector(".comentario-actions").style.display = "block";
@@ -378,12 +428,18 @@ function enableCommentActions() {
       // Guardar cambios
       formDiv.querySelector(".btn-save").addEventListener("click", async () => {
         const nuevoTexto = textarea.value.trim();
-        const nuevoRating = parseInt(select.value);
+        const nuevoRating = parseInt(input.value);
 
         if (!nuevoTexto) {
           alert("El comentario no puede estar vacío.");
           return;
         }
+
+        console.log("Guardando comentario:", {
+          id,
+          text: nuevoTexto,
+          rating: nuevoRating,
+        });
 
         const res = await fetch("/api/comments_api.php?action=update", {
           method: "POST",
@@ -391,7 +447,10 @@ function enableCommentActions() {
           body: JSON.stringify({ id, text: nuevoTexto, rating: nuevoRating }),
         });
 
+        console.log("Respuesta del servidor:", res);
+
         const data = await res.json();
+        console.log("Datos recibidos:", data);
         if (data.success) {
           loadComments(currentProductId);
         } else {
@@ -400,6 +459,18 @@ function enableCommentActions() {
       });
     });
   });
+}
+
+// Función auxiliar para obtener el rating actual desde el HTML de estrellas
+function getRatingFromStars(starsContainer) {
+  const stars = starsContainer.querySelectorAll(".star-display");
+  let rating = 0;
+  stars.forEach((star) => {
+    if (star.classList.contains("filled")) {
+      rating++;
+    }
+  });
+  return rating;
 }
 
 /* ============================
@@ -484,7 +555,6 @@ function startTimestampPolling(productId) {
       const data = await res.json();
 
       if (data.changed) {
-        console.log("Archivo de comentarios modificado, recargando...");
         lastCommentsTimestamp = data.timestamp;
         loadComments(productId);
       } else {

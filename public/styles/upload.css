@@ -1,0 +1,184 @@
+/* ====== ESTILOS PÁGINA UPLOAD ====== */
+
+.pagina-upload {
+    background-color: #f3f2f7;
+    min-height: calc(100vh - 200px); /* Ajuste para header/footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.pagina-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.pagina-content h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.pagina-content p {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* ====== FORMULARIO ====== */
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+#uploadForm label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#uploadForm input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #66c3e3;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: inherit;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+#uploadForm input[type="file"]:focus {
+    border-color: #66c3e3;
+    box-shadow: 0 0 4px rgba(102, 195, 227, 0.5);
+}
+
+/* ====== BOTONES ====== */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-comprar {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Inria Sans", sans-serif;
+    line-height: 1.5;
+}
+
+/* Botón Primario (Subir) - Estilo azul como login-btn */
+button.btn-comprar {
+    background-color: #66c3e3;
+    color: white;
+}
+
+button.btn-comprar:hover {
+    background-color: #083d80;
+}
+
+/* Botón Secundario (Volver) */
+a.btn-comprar.btn-secundario {
+    background-color: transparent;
+    color: #083d80;
+    border: 2px solid #083d80;
+}
+
+a.btn-comprar.btn-secundario:hover {
+    background-color: #083d80;
+    color: white;
+}
+
+/* ====== NOTAS Y RESULTADOS ====== */
+.upload-notes {
+    background-color: #f9f9f9;
+    border-left: 4px solid #66c3e3;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: left;
+    margin-top: 30px;
+}
+
+.upload-notes h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.upload-notes ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #555;
+}
+
+.upload-notes li {
+    margin-bottom: 5px;
+}
+
+/* Mensajes de estado */
+.upload-info {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#uploadResult {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.result-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.result-error {
+    background-color: #fdecea;
+    color: #e74c3c;
+    border: 1px solid #f5c2c0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .pagina-content {
+        padding: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-comprar {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
