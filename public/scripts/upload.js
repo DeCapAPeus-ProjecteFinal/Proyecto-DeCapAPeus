@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   fileInput.addEventListener("change", () => {
+    document.getElementById("uploadResult").innerHTML = "";
     const f = fileInput.files[0];
     if (!f) {
       showMessage("No se ha seleccionado ningún fichero.", "info");
@@ -67,10 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Preparar envío AJAX
-    showMessage("Subiendo archivo... Por favor espera.", "info");
+    const fileName = f.name;
+    showMessage(`[${fileName}] Subiendo archivo... Por favor espera.`, "info");
     const formData = new FormData(form);
+    
+    // Limpiar input y resultados anteriores
+    fileInput.value = ""; 
     const resultDiv = document.getElementById("uploadResult");
-    resultDiv.innerHTML = ""; // Limpiar resultados anteriores
+    resultDiv.innerHTML = ""; 
 
     try {
       const response = await fetch(form.action, {
@@ -78,21 +83,22 @@ document.addEventListener("DOMContentLoaded", function () {
         body: formData,
       });
 
-      // Intentar parsear JSON incluso si el status no es 200 (para leer errores del backend)
+      const text = await response.text();
       let data;
       try {
-        data = await response.json();
+        data = JSON.parse(text);
       } catch (err) {
-        throw new Error("Respuesta del servidor no válida (no es JSON).");
+        console.error("Respuesta no JSON:", text);
+        throw new Error(`[${fileName}] Respuesta del servidor no válida (no es JSON). Ver consola para detalles.\nInicio de respuesta: ${text.substring(0, 100)}...`);
       }
 
       if (!response.ok) {
-        throw new Error(data.error || `Error del servidor: ${response.status}`);
+        throw new Error(data.error || `[${fileName}] Error del servidor: ${response.status}`);
       }
 
       // Éxito: Renderizar resultados
-      showMessage("Proceso completado.", "success");
-      renderResults(data, resultDiv);
+      showMessage(`[${fileName}] Proceso completado.`, "success");
+      renderResults(data, resultDiv, fileName);
 
     } catch (error) {
       console.error(error);
@@ -100,10 +106,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  function renderResults(data, container) {
+  function renderResults(data, container, fileName) {
     let html = `
       <div class="upload-summary">
-        <h3>Resumen de Importación</h3>
+        <h3>[${fileName}] Resumen de Importación</h3>
         <ul>
           <li><strong>Importados (Nuevos):</strong> ${data.imported}</li>
           <li><strong>Actualizados:</strong> ${data.updated || 0}</li>
@@ -141,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (data.errors && data.errors.length > 0) {
       html += `
         <div class="upload-details error-details">
+          </br>
           <h4>Errores / Ignorados</h4>
           <table>
             <thead>

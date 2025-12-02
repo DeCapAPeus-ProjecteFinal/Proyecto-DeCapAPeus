@@ -64,8 +64,9 @@ if (!is_dir($uploadDir)) {
 
 $uniqueName = time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
 $destPath = $uploadDir . '/' . $uniqueName;
-if (!move_uploaded_file($file['tmp_name'], $destPath)) {
-    respond(['error' => 'No se pudo guardar el fichero en el servidor'], 500);
+if (!@move_uploaded_file($file['tmp_name'], $destPath)) {
+    $error = error_get_last();
+    respond(['error' => 'No se pudo guardar el fichero en el servidor. Detalles: ' . ($error['message'] ?? '')], 500);
 }
 
 // 4. LECTURA CON PHPSPREADSHEET
