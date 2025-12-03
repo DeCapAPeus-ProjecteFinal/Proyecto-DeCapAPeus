@@ -151,8 +151,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
         <br>
-        <a class="profile-link" href="http://localhost/auth/logout.php">Cerrar sesión</a>
-        <a class="profile-link" href="http://localhost">Volver al inicio</a> <!-- Canviar mas tarde -->
+        <a class="profile-link" href="/auth/logout.php">Cerrar sesión</a>
+        <a class="profile-link" href="/">Volver al inicio</a>
     </div>
     <div id="footer"></div>
     <script src="/scripts/include-partials.js"></script>

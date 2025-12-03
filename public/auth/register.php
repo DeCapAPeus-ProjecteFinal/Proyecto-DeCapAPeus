@@ -141,9 +141,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button class="register-btn" type="submit">Registrar</button>
         </form>
 
-        <p>¿Ya tienes cuenta? <a class="register-link" href="http://localhost/auth/login.php">Iniciar Sesión</a></p>
+        <p>¿Ya tienes cuenta? <a class="register-link" href="/auth/login.php">Iniciar Sesión</a></p>
         <br>
-        <a class="register-link" href="http://localhost">Volver al inicio</a>
+        <a class="register-link" href="/">Volver al inicio</a>
     </div>
     <div id="footer"></div>
     <script src="/scripts/include-partials.js"></script>
